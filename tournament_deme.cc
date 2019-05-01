@@ -8,7 +8,7 @@
 TournamentDeme::TournamentDeme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
  :Deme(cities_ptr,pop_size,mut_rate){}
 
-Chromosome* TournamentDeme::select_parent() override{
+ClimbChromosome* TournamentDeme::select_parent(){
 
 // Find P where P is the greatest power of 2 less than than the population size
     int P=0;
@@ -18,7 +18,7 @@ Chromosome* TournamentDeme::select_parent() override{
 
 //Select P parents at random
     std::random_shuffle(pop_.begin(), pop_.end());
-    std::vector<Chromosome*> candidateParents;
+    std::vector<ClimbChromosome*> candidateParents;
     for(int i=0; i<P; i++){
         candidateParents.push_back(pop_[i]);
     }
@@ -26,19 +26,21 @@ Chromosome* TournamentDeme::select_parent() override{
 //Tournament style elimanates 1/2 of the parents each round until only 1 remains
     while(candidateParents.size()!=1){
     //Where winning parents are stored
-        std::vector<Chromosome*> nextParents;
+        std::vector<ClimbChromosome*> nextParents;
     //Removes parents two at a time saving the one with a higher fitness
         while(candidateParents.size()>0){
         
         //Chose 2 parents
-            auto parent1=candidateParents.pop_back();
-            auto parent2=candidateParents.pop_back();
+            auto parent1=candidateParents.back();
+	    candidateParents.pop_back();
+            auto parent2=candidateParents.back();
+	    candidateParents.pop_back();
         
         //Determins witch parent is more fit and saves it
-            if(Deme::compare(parent1,parent2)){
-                nextParents.push_back(parent1)
+            if(parent1-> get_fitness() > parent2 ->get_fitness()){
+                nextParents.push_back(parent1);
             }
-            else{nextParents.push_back(parent2)}
+            else{nextParents.push_back(parent2);}
         }
     
     //Sets Next Generation of candidateParents
