@@ -11,10 +11,10 @@ TournamentDeme::TournamentDeme(const Cities* cities_ptr, unsigned pop_size, doub
 ClimbChromosome* TournamentDeme::select_parent(){
 
 // Find P where P is the greatest power of 2 less than than the population size
-    int P=0;
-    for(int i=1;pow(2,i)<=pop_.size();i++){                  
+    int P=2;
+    /*for(int i=1;pow(2,i)<=pop_.size();i++){                  
         P=pow(2,i);
-    }
+    }*/
 
 //Select P parents at random
     std::random_shuffle(pop_.begin(), pop_.end());
