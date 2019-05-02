@@ -1,5 +1,6 @@
 #pragma once
 #include "deme.hh"
+#include "climb_chromosome.hh"
 
 class TournamentDeme : public Deme
 {
