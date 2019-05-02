@@ -8,7 +8,7 @@
 TournamentDeme::TournamentDeme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
  :Deme(cities_ptr,pop_size,mut_rate){}
 
-ClimbChromosome* TournamentDeme::select_parent(){
+Chromosome* TournamentDeme::select_parent(){
 
 // Find P where P is the greatest power of 2 less than than the population size
     int P=2;
@@ -18,7 +18,7 @@ ClimbChromosome* TournamentDeme::select_parent(){
 
 //Select P parents at random
     std::random_shuffle(pop_.begin(), pop_.end());
-    std::vector<ClimbChromosome*> candidateParents;
+    std::vector<Chromosome*> candidateParents;
     for(int i=0; i<P; i++){
         candidateParents.push_back(pop_[i]);
     }
@@ -26,7 +26,7 @@ ClimbChromosome* TournamentDeme::select_parent(){
 //Tournament style elimanates 1/2 of the parents each round until only 1 remains
     while(candidateParents.size()!=1){
     //Where winning parents are stored
-        std::vector<ClimbChromosome*> nextParents;
+        std::vector<Chromosome*> nextParents;
     //Removes parents two at a time saving the one with a higher fitness
         while(candidateParents.size()>0){
         
