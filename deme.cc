@@ -22,6 +22,7 @@ Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
   // Create random Chromosomes and put into population vector
   for (auto& cp : pop_) {
     cp = new Chromosome(cities_ptr);
+   //cp = new ClimbChromosome(cities_ptr);
   }
 }
 
